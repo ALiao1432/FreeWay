@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#DADADA</color>
+    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorAccent">#00897b</color>
+    <color name="colorRipple">#00897b</color>
+</resources>

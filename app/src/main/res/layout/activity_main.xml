@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnSelectSpeed"
+        style="@style/AppTheme.Main.Btn"
+        android:layout_width="@dimen/btn_main_width"
+        android:layout_height="wrap_content"
+        android:text="@string/highway_speed"
+        app:layout_constraintBottom_toTopOf="@+id/btnSelectNotify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnSelectNotify"
+        style="@style/AppTheme.Main.Btn"
+        android:layout_width="@dimen/btn_main_width"
+        android:layout_height="wrap_content"
+        android:text="@string/highway_notify"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSelectSpeed" />
+
+</android.support.constraint.ConstraintLayout>

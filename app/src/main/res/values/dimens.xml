@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="btn_shape_padding_left_right">30dp</dimen>
+    <dimen name="btn_shape_padding_left_right">20dp</dimen>
     <dimen name="btn_shape_padding_top_bottom">10dp</dimen>
     <dimen name="btn_shape_radius">75dp</dimen>
     <dimen name="btn_shape_stroke_width">5dp</dimen>
 
     <dimen name="btn_main_width">300dp</dimen>
+    <dimen name="btn_main_margin">34dp</dimen>
+    <dimen name="btn_main_padding_top_bottom">16dp</dimen>
 
 </resources>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,6 +20,7 @@ import io.reactivex.processors.PublishProcessor;
 import study.ian.freeway.adapter.RoadAdapter;
 import study.ian.freeway.util.ObserverHelper;
 import study.ian.freeway.view.BottomTextSelectView;
+import study.ian.morphviewlib.MorphView;
 import study.ian.networkstateutil.ConnectionType;
 import study.ian.networkstateutil.RxNetworkStateUtil;
 
@@ -26,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
 
-    private RecyclerView roadRecyclerView;
     private RoadAdapter roadAdapter;
+    private RecyclerView roadRecyclerView;
     private BottomTextSelectView textSelectView;
+    private MorphView loadingView;
     private PublishProcessor<String> roadListProcessor = PublishProcessor.create();
 
     @Override
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         new RxNetworkStateUtil(this).getNetworkStateObservable()
                 .filter(connectionType -> connectionType != ConnectionType.NO_NETWORK)
+                .doOnEach(connectionTypeNotification -> loadingView.performInfiniteAnimation(R.drawable.vd_loading_sin_1, R.drawable.vd_loading_sin_2))
                 .doOnNext(connectionType -> getGeneratedHTML())
                 .flatMap(connectionType -> roadListProcessor.toObservable())
                 .compose(ObserverHelper.applyHelper())
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private void findViews() {
         roadRecyclerView = findViewById(R.id.recyclerViewRoad);
         textSelectView = findViewById(R.id.textSelectView);
+        loadingView = findViewById(R.id.loadingMorphView);
     }
 
     private void initViews() {
@@ -63,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         roadRecyclerView.setLayoutManager(linearLayoutManager);
 
         textSelectView.addText(getString(R.string.highway_speed), getString(R.string.highway_notify));
+
+        loadingView.setPaintWidth(50);
+        loadingView.setPaintColor(getColor(R.color.colorAccent));
+        loadingView.setCurrentId(R.drawable.vd_loading_sin_1);
+        loadingView.setSize(1080, 1920);
+        loadingView.setAnimationDuration(500);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -83,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         Document doc = Jsoup.parse(html);
         Element freeway = doc.getElementById("freeway");
         Elements roads = freeway.children();
+
+        loadingView.stopInfiniteAnimation();
+        loadingView.setVisibility(View.GONE);
+
         roadAdapter.addRoadList(roads);
     }
 
